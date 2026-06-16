@@ -1,6 +1,7 @@
 import ScanlineOverlay from '@/components/ScanlineOverlay';
 import Hero from '@/components/Hero';
 import MovieGrid from '@/components/MovieGrid';
+import MisalignmentLadder from '@/components/MisalignmentLadder';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <div className="relative z-10">
         <Hero />
         <MovieGrid />
+        <MisalignmentLadder />
         <Footer />
       </div>
     </div>
