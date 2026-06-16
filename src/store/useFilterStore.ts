@@ -63,8 +63,12 @@ export const useFilterStore = create<FilterState>((set, get) => ({
   setYearRange: (range) => set({ yearRange: range }),
   setSelectedYear: (year) => set({ selectedYear: year }),
   setRegionFilter: (filter) => set({ regionFilter: filter }),
-  triggerRewind: () =>
-    set((state) => ({ isRewinding: true, rewindKey: state.rewindKey + 1 })),
+  triggerRewind: () => {
+    set((state) => ({ isRewinding: true, rewindKey: state.rewindKey + 1 }));
+    setTimeout(() => {
+      set({ isRewinding: false });
+    }, 1200);
+  },
   finishRewind: () => set({ isRewinding: false }),
 
   computeMovieMisalignment: (movie: Movie): number => {
@@ -93,16 +97,16 @@ export const useFilterStore = create<FilterState>((set, get) => ({
   },
 
   getFilteredMovies: (): Movie[] => {
-    const { yearRange, regionFilter } = get();
+    const { selectedYear, regionFilter } = get();
     return movies.filter((movie) => {
-      const yearInRange = movie.year >= yearRange[0] && movie.year <= yearRange[1];
+      const yearMatch = movie.year === selectedYear;
       let regionMatch = true;
       if (regionFilter === 'domestic') {
         regionMatch = movie.country.includes('中国');
       } else if (regionFilter === 'foreign') {
         regionMatch = !movie.country.includes('中国');
       }
-      return yearInRange && regionMatch;
+      return yearMatch && regionMatch;
     });
   },
 

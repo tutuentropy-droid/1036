@@ -105,20 +105,20 @@ export default function YearSlider() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-8">
-      <div className="bg-vhs-dark/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-vhs-gray/50 shadow-2xl">
-        <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-          <div className="flex items-center gap-3">
-            <Calendar className="w-6 h-6 text-vhs-green" />
-            <h3 className="font-pixel text-lg text-white">错位年代控制</h3>
-          </div>
+    <div className="w-full space-y-4">
+      <div className="bg-vhs-dark/80 backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-vhs-gray/50 shadow-2xl">
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <div className="flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-vhs-green" />
+            <h3 className="font-pixel text-base text-white">错位年代</h3>
+          </div>
+          <div className="flex items-center gap-1.5">
             {regions.map((r) => (
               <button
                 key={r.value}
                 onClick={() => handleRegionChange(r.value)}
                 className={cn(
-                  'flex items-center gap-1.5 px-4 py-2 rounded-lg font-terminal text-sm transition-all duration-300 border',
+                  'flex items-center gap-1 px-3 py-1.5 rounded-lg font-terminal text-sm transition-all duration-300 border',
                   regionFilter === r.value
                     ? 'bg-vhs-green/20 border-vhs-green text-vhs-green neon-border-green'
                     : 'bg-vhs-gray/30 border-vhs-gray/50 text-gray-400 hover:border-vhs-green/50 hover:text-gray-200'
@@ -131,25 +131,25 @@ export default function YearSlider() {
           </div>
         </div>
 
-        <div className="mb-2">
+        <div>
           <div className="flex items-center justify-between mb-3">
-            <span className="font-pixel text-sm text-gray-400">{minYear}</span>
+            <span className="font-pixel text-xs text-gray-400">{minYear}</span>
             <div
-              className="font-pixel text-2xl md:text-3xl px-4 py-2 rounded-xl border-2 animate-pulse-glow"
+              className="font-pixel text-xl md:text-2xl px-3 py-1.5 rounded-xl border-2 animate-pulse-glow"
               style={{
                 color: '#39ff14',
                 borderColor: '#39ff14',
-                boxShadow: '0 0 20px rgba(57, 255, 20, 0.4)',
+                boxShadow: '0 0 15px rgba(57, 255, 20, 0.4)',
               }}
             >
               {selectedYear}
             </div>
-            <span className="font-pixel text-sm text-gray-400">{maxYear}</span>
+            <span className="font-pixel text-xs text-gray-400">{maxYear}</span>
           </div>
 
           <div
             ref={sliderRef}
-            className="relative h-4 bg-vhs-gray/60 rounded-full cursor-pointer overflow-hidden border border-vhs-gray/50"
+            className="relative h-3 bg-vhs-gray/60 rounded-full cursor-pointer overflow-hidden border border-vhs-gray/50"
             onMouseDown={handleMouseDown}
           >
             <div
@@ -157,17 +157,18 @@ export default function YearSlider() {
               style={{
                 width: `${percent}%`,
                 background: `linear-gradient(90deg, #39ff14, #c77dff, #ff6b9d)`,
-                boxShadow: '0 0 15px rgba(57, 255, 20, 0.5)',
+                boxShadow: '0 0 12px rgba(57, 255, 20, 0.5)',
               }}
             />
             <div
-              className="absolute top-1/2 -translate-y-1/2 w-8 h-8 rounded-full border-4 transition-all duration-150"
+              className="absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border-3 transition-all duration-150"
               style={{
-                left: `calc(${percent}% - 16px)`,
+                left: `calc(${percent}% - 12px)`,
                 backgroundColor: '#0a0a0a',
                 borderColor: '#39ff14',
+                borderWidth: '3px',
                 boxShadow:
-                  '0 0 20px rgba(57, 255, 20, 0.8), inset 0 0 10px rgba(57, 255, 20, 0.3)',
+                  '0 0 15px rgba(57, 255, 20, 0.8), inset 0 0 8px rgba(57, 255, 20, 0.3)',
               }}
             >
               <div className="w-full h-full rounded-full bg-gradient-to-br from-vhs-green/30 to-transparent" />
@@ -175,14 +176,14 @@ export default function YearSlider() {
             <div className="absolute inset-0 vhs-stripe opacity-40 pointer-events-none" />
           </div>
 
-          <div className="flex justify-between mt-3 px-2">
+          <div className="flex justify-between mt-2 px-1">
             {Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i).map(
               (year) => (
                 <button
                   key={year}
                   onClick={() => handleYearChange(year)}
                   className={cn(
-                    'font-terminal text-xs transition-all duration-200 h-4',
+                    'font-terminal text-xs transition-all duration-200 h-3',
                     selectedYear === year
                       ? 'text-vhs-green font-bold scale-125'
                       : 'text-gray-500 hover:text-gray-300'
@@ -196,17 +197,17 @@ export default function YearSlider() {
         </div>
       </div>
 
-      <div className="bg-vhs-dark/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-vhs-gray/50 shadow-2xl">
-        <div className="flex items-center gap-3 mb-6">
-          <Gauge className="w-6 h-6" style={{ color: getRateColor(rate) }} />
-          <h3 className="font-pixel text-lg text-white">错位率检测</h3>
-          <span className="font-terminal text-sm text-gray-500 ml-auto">
-            匹配影片: {filteredCount} 部
+      <div className="bg-vhs-dark/80 backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-vhs-gray/50 shadow-2xl">
+        <div className="flex items-center gap-2 mb-4">
+          <Gauge className="w-5 h-5" style={{ color: getRateColor(rate) }} />
+          <h3 className="font-pixel text-base text-white">错位率</h3>
+          <span className="font-terminal text-xs text-gray-500 ml-auto">
+            匹配: {filteredCount} 部
           </span>
         </div>
 
         <div className="relative">
-          <div className="relative h-10 bg-vhs-gray/40 rounded-xl overflow-hidden border border-vhs-gray/60">
+          <div className="relative h-8 bg-vhs-gray/40 rounded-xl overflow-hidden border border-vhs-gray/60">
             <div
               className="h-full transition-all duration-500 ease-out rounded-xl"
               style={{
@@ -214,12 +215,12 @@ export default function YearSlider() {
                 background: `linear-gradient(90deg, ${getRateColor(0)}, ${getRateColor(
                   50
                 )}, ${getRateColor(100)})`,
-                boxShadow: `0 0 20px ${getRateColor(rate)}60`,
+                boxShadow: `0 0 15px ${getRateColor(rate)}60`,
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <span
-                className="font-pixel text-xl md:text-2xl relative z-10 mix-blend-difference"
+                className="font-pixel text-lg md:text-xl relative z-10 mix-blend-difference"
                 style={{ color: '#ffffff' }}
               >
                 {rate}%
@@ -228,53 +229,35 @@ export default function YearSlider() {
             <div className="absolute inset-0 vhs-stripe opacity-30 pointer-events-none" />
           </div>
 
-          <div className="flex justify-between mt-4 px-1">
+          <div className="flex justify-between mt-3 px-1">
             <div className="text-center">
               <div
-                className="font-terminal text-2xl font-bold mb-1"
+                className="font-terminal text-lg font-bold mb-0.5"
                 style={{ color: '#39ff14' }}
               >
                 0%
               </div>
-              <div className="font-terminal text-xs text-gray-500">原味复刻</div>
+              <div className="font-terminal text-xs text-gray-500">原味</div>
             </div>
             <div className="text-center">
               <div
-                className="font-terminal text-2xl font-bold mb-1"
+                className="font-terminal text-lg font-bold mb-0.5"
                 style={{ color: '#c77dff' }}
               >
                 50%
               </div>
-              <div className="font-terminal text-xs text-gray-500">轻微错位</div>
+              <div className="font-terminal text-xs text-gray-500">错位</div>
             </div>
             <div className="text-center">
               <div
-                className="font-terminal text-2xl font-bold mb-1"
+                className="font-terminal text-lg font-bold mb-0.5"
                 style={{ color: '#ff6b9d' }}
               >
                 100%
               </div>
-              <div className="font-terminal text-xs text-gray-500">精神错乱</div>
+              <div className="font-terminal text-xs text-gray-500">错乱</div>
             </div>
           </div>
-        </div>
-
-        <div className="mt-6 p-4 rounded-xl border border-vhs-gray/40 bg-vhs-black/40">
-          <p className="font-terminal text-sm text-gray-400 leading-relaxed">
-            <span className="text-vhs-green">▶</span> 当前选中年份{' '}
-            <span className="text-vhs-green font-bold">{selectedYear}</span> 的错位指数为{' '}
-            <span
-              className="font-bold"
-              style={{ color: getRateColor(rate) }}
-            >
-              {rate}%
-            </span>
-            。{rate >= 70
-              ? '警告：该年代的电影已经严重错位，小心观看！'
-              : rate >= 40
-              ? '提示：存在一定程度的时空错位，体验时请注意辨别。'
-              : '状态：年代较为稳定，错位处于可控范围内。'}
-          </p>
         </div>
       </div>
     </div>

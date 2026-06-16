@@ -396,3 +396,30 @@ input[type='range'].vhs-range::-moz-range-thumb {
 .vhs-tracking-bar {
   animation: trackingExpand 0.5s ease-in-out infinite;
 }
+
+@keyframes rewindProgress {
+  0% {
+    width: 0%;
+    transform: translateX(-100%);
+  }
+  50% {
+    width: 60%;
+  }
+  100% {
+    width: 100%;
+    transform: translateX(0);
+  }
+}
+
+.vhs-rewind-overlay {
+  animation: rewindFlicker 0.08s infinite;
+}
+
+@keyframes rewindFlicker {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

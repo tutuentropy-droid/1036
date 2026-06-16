@@ -12,7 +12,7 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [rewindPhase, setRewindPhase] = useState<'idle' | 'rewinding' | 'clearing'>('idle');
-  const { rewindKey, isRewinding, computeMovieMisalignment } = useFilterStore();
+  const { rewindKey, computeMovieMisalignment } = useFilterStore();
   const prevRewindKey = useRef(rewindKey);
 
   const misalignment = computeMovieMisalignment(movie);
