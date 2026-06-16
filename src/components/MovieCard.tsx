@@ -26,7 +26,7 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
     >
       <div
         className={`relative w-full h-[420px] transition-transform duration-700 ease-in-out preserve-3d ${
-          isFlipped || isHovered ? 'rotate-y-180' : ''
+          isFlipped ? 'rotate-y-180' : ''
         }`}
         style={{ transformStyle: 'preserve-3d' }}
       >
@@ -84,8 +84,8 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
             </div>
 
             <div className="pt-2 border-t border-vhs-gray/30">
-              <p className="font-terminal text-xs text-vhs-green/70 flex items-center gap-1">
-                <Shuffle className="w-3 h-3" />
+              <p className={`font-terminal text-xs flex items-center gap-1 transition-colors duration-300 ${isHovered ? 'text-vhs-green' : 'text-vhs-green/70'}`}>
+                <Shuffle className={`w-3 h-3 ${isHovered ? 'animate-pulse' : ''}`} />
                 点击翻转查看错位事实
               </p>
             </div>
@@ -150,11 +150,14 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
                 <div 
                   className="h-full rounded-full transition-all duration-500"
                   style={{ 
-                    width: isHovered || isFlipped ? '100%' : '30%',
+                    width: isFlipped ? '100%' : '30%',
                     backgroundColor: movie.posterColor 
                   }}
                 />
               </div>
+              <p className="font-terminal text-xs text-gray-500 text-center">
+                点击卡片返回正面
+              </p>
             </div>
           </div>
 

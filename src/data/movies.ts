@@ -12,7 +12,7 @@ export const movies: Movie[] = [
     posterColor: '#00d4ff',
     posterGradient: 'from-blue-600 to-cyan-400',
     emoji: '🏙️',
-    错位Fact: '如果昆汀来拍《重庆森林》，警察663会对着汉堡包自言自语，而不是肥皂毛巾。',
+    错位Fact: '警察663会对着汉堡包自言自语，而不是肥皂毛巾。',
     错位Director: '昆汀·塔伦蒂诺',
   },
   {
@@ -26,7 +26,7 @@ export const movies: Movie[] = [
     posterColor: '#ff6b9d',
     posterGradient: 'from-rose-700 to-pink-400',
     emoji: '🎭',
-    错位Fact: '如果周星驰来拍《活着》，福贵会用无厘头度过所有苦难，最后发现人生就是一场大笑话。',
+    错位Fact: '福贵会用无厘头度过所有苦难，最后发现人生就是一场大笑话。',
     错位Director: '周星驰',
   },
   {
@@ -40,7 +40,7 @@ export const movies: Movie[] = [
     posterColor: '#c77dff',
     posterGradient: 'from-purple-700 to-violet-400',
     emoji: '🎭',
-    错位Fact: '如果成龙来拍《霸王别姬》，程蝶衣会用京剧身段打斗，从一而终的不只是戏还有武功。',
+    错位Fact: '程蝶衣会用京剧身段打斗，从一而终的不只是戏还有武功。',
     错位Director: '成龙',
   },
   {
@@ -54,7 +54,7 @@ export const movies: Movie[] = [
     posterColor: '#ffff00',
     posterGradient: 'from-yellow-600 to-amber-400',
     emoji: '🔫',
-    错位Fact: '如果王家卫来拍《低俗小说》，文森特会对着汉堡包发呆三分钟，然后说过期的凤梨罐头比较配杀手。',
+    错位Fact: '文森特会对着汉堡包发呆三分钟，然后说过期的凤梨罐头比较配杀手。',
     错位Director: '王家卫',
   },
   {
@@ -68,7 +68,7 @@ export const movies: Movie[] = [
     posterColor: '#39ff14',
     posterGradient: 'from-green-700 to-emerald-400',
     emoji: '🌿',
-    错位Fact: '如果北野武来拍《这个杀手不太冷》，里昂会更沉默，盆栽换成武士刀，玛蒂尔达学会了久石让的配乐。',
+    错位Fact: '里昂会更沉默，盆栽换成武士刀，玛蒂尔达学会了久石让的配乐。',
     错位Director: '北野武',
   },
   {
@@ -82,7 +82,7 @@ export const movies: Movie[] = [
     posterColor: '#00d4ff',
     posterGradient: 'from-sky-700 to-blue-400',
     emoji: '🏃',
-    错位Fact: '如果蒂姆·波顿来拍《阿甘正传》，阿甘会在哥特式小镇上奔跑，巧克力盒变成南瓜灯。',
+    错位Fact: '阿甘会在哥特式小镇上奔跑，巧克力盒变成南瓜灯。',
     错位Director: '蒂姆·波顿',
   },
   {
@@ -96,7 +96,7 @@ export const movies: Movie[] = [
     posterColor: '#c77dff',
     posterGradient: 'from-indigo-700 to-purple-400',
     emoji: '🚢',
-    错位Fact: '如果盖·里奇来拍《泰坦尼克号》，杰克和露丝会用英式口音快速对白，冰山撞船变成多线叙事巧合。',
+    错位Fact: '杰克和露丝会用英式口音快速对白，冰山撞船变成多线叙事巧合。',
     错位Director: '盖·里奇',
   },
   {
@@ -110,7 +110,7 @@ export const movies: Movie[] = [
     posterColor: '#ff6b9d',
     posterGradient: 'from-red-700 to-rose-400',
     emoji: '🥊',
-    错位Fact: '如果韦斯·安德森来拍《搏击俱乐部》，打斗场面会对称构图，肥皂有精美的包装设计。',
+    错位Fact: '打斗场面会对称构图，肥皂有精美的包装设计。',
     错位Director: '韦斯·安德森',
   },
   {
@@ -124,7 +124,7 @@ export const movies: Movie[] = [
     posterColor: '#ffff00',
     posterGradient: 'from-orange-600 to-yellow-400',
     emoji: '🐒',
-    错位Fact: '如果黑泽明来拍《大话西游》，至尊宝会用武士道精神面对紫霞，金箍棒变成七武士之一。',
+    错位Fact: '至尊宝会用武士道精神面对紫霞，金箍棒变成七武士之一。',
     错位Director: '黑泽明',
   },
   {
@@ -138,7 +138,7 @@ export const movies: Movie[] = [
     posterColor: '#39ff14',
     posterGradient: 'from-emerald-700 to-green-400',
     emoji: '💊',
-    错位Fact: '如果宫崎骏来拍《黑客帝国》，尼奥会驾驶飞行城堡，代码雨变成魔法森林的精灵粒子。',
+    错位Fact: '尼奥会驾驶飞行城堡，代码雨变成魔法森林的精灵粒子。',
     错位Director: '宫崎骏',
   },
 ];
