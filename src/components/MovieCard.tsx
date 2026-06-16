@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Calendar, MapPin, User, Tag, Shuffle, Quote } from 'lucide-react';
 import type { Movie } from '@/types';
+import { useFilterStore } from '@/store/useFilterStore';
 
 interface MovieCardProps {
   movie: Movie;
@@ -10,6 +11,51 @@ interface MovieCardProps {
 export default function MovieCard({ movie, index }: MovieCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [rewindPhase, setRewindPhase] = useState<'idle' | 'rewinding' | 'clearing'>('idle');
+  const { rewindKey, isRewinding, computeMovieMisalignment } = useFilterStore();
+  const prevRewindKey = useRef(rewindKey);
+
+  const misalignment = computeMovieMisalignment(movie);
+
+  useEffect(() => {
+    if (prevRewindKey.current !== rewindKey) {
+      prevRewindKey.current = rewindKey;
+      const baseDelay = (index % 10) * 60;
+      
+      setRewindPhase('rewinding');
+      
+      const clearTimer = setTimeout(() => {
+        setRewindPhase('clearing');
+      }, 400 + baseDelay);
+      
+      const doneTimer = setTimeout(() => {
+        setRewindPhase('idle');
+      }, 900 + baseDelay);
+      
+      return () => {
+        clearTimeout(clearTimer);
+        clearTimeout(doneTimer);
+      };
+    }
+  }, [rewindKey, index]);
+
+  const getRewindStyles = (): React.CSSProperties => {
+    if (rewindPhase === 'idle') {
+      return {};
+    }
+    if (rewindPhase === 'rewinding') {
+      return {
+        filter: `blur(12px) hue-rotate(${180 + misalignment}deg) saturate(2) contrast(1.5) brightness(0.7)`,
+        transform: `skewX(${Math.sin(misalignment) * 10}deg) scale(0.95)`,
+        opacity: 0.4,
+      };
+    }
+    return {
+      filter: `blur(0px) hue-rotate(0deg) saturate(1) contrast(1) brightness(1)`,
+      transform: `skewX(0deg) scale(1)`,
+      opacity: 1,
+    };
+  };
 
   const delayClass = `delay-${(index % 10) * 100}` as const;
 
@@ -19,11 +65,35 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
 
   return (
     <div 
-      className={`perspective cursor-pointer opacity-0 animate-fade-in-up ${delayClass}`}
+      className={`perspective cursor-pointer opacity-0 animate-fade-in-up ${delayClass} relative group`}
       onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
+      {rewindPhase !== 'idle' && (
+        <>
+          <div 
+            className="absolute inset-0 z-50 pointer-events-none rounded-xl overflow-hidden vhs-rewind-lines"
+            style={{ opacity: rewindPhase === 'rewinding' ? 1 : 0, transition: 'opacity 0.3s ease' }}
+          />
+          <div 
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none"
+            style={{ opacity: rewindPhase === 'rewinding' ? 1 : 0, transition: 'opacity 0.2s ease' }}
+          >
+            <span className="font-pixel text-3xl text-vhs-green animate-pulse vhs-text-glitch">
+              ⏪ REW
+            </span>
+          </div>
+        </>
+      )}
+      
+      <div
+        className="transition-all ease-out relative z-10"
+        style={{
+          ...getRewindStyles(),
+          transitionDuration: rewindPhase === 'rewinding' ? '0.15s' : '0.5s',
+        }}
+      >
       <div
         className={`relative w-full h-[420px] transition-transform duration-700 ease-in-out preserve-3d ${
           isFlipped ? 'rotate-y-180' : ''
@@ -165,6 +235,7 @@ export default function MovieCard({ movie, index }: MovieCardProps) {
             <span className="text-3xl opacity-20">{movie.emoji}</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
