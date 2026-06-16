@@ -69,6 +69,7 @@ function LadderBar({
   const [isAnimating, setIsAnimating] = useState(false);
   const [showDonateEffect, setShowDonateEffect] = useState(false);
 
+  const totalPopularity = mashupCount + donatedPopularity;
   const percentage = Math.min((value / maxValue) * 100, 100);
   const mashupPercentage = Math.min((mashupCount / maxValue) * 100, 100);
   const donatedPercentage = Math.min((donatedPopularity / maxValue) * 100, 100);
@@ -130,7 +131,12 @@ function LadderBar({
           <h3 className="font-pixel text-sm text-white truncate group-hover:text-vhs-green transition-colors">
             {movie.title}
           </h3>
-          <RetroMeter value={value} max={maxValue} color={movie.posterColor} />
+          <RetroMeter value={totalPopularity} max={maxValue} color={movie.posterColor} />
+          {donatedPopularity > 0 && (
+            <span className="font-pixel text-xs text-vhs-pink">
+              +{donatedPopularity}
+            </span>
+          )}
         </div>
 
         <div className="relative h-8 rounded-md overflow-hidden bg-vhs-gray/40 border border-vhs-gray/50">
@@ -142,7 +148,7 @@ function LadderBar({
             }}
           />
 
-          {sortMode === 'popularity' && donatedPopularity > 0 && (
+          {donatedPopularity > 0 && (
             <div
               className="absolute inset-y-0 transition-all duration-700 ease-out"
               style={{
@@ -162,6 +168,11 @@ function LadderBar({
                 <>
                   <Shuffle className="w-3 h-3 inline mr-1" />
                   {mashupCount} 次混搭
+                  {donatedPopularity > 0 && (
+                    <span className="text-vhs-pink ml-1">
+                      (+{donatedPopularity} 人气)
+                    </span>
+                  )}
                 </>
               ) : (
                 <>
@@ -308,7 +319,7 @@ export default function MisalignmentLadder() {
               <div
                 key={entry.movieId}
                 style={{ animationDelay: `${index * 80}ms` }}
-                className="animate-fade-in-up opacity-0"
+                className="animate-fade-in-up"
               >
                 <LadderBar
                   movie={movie}
