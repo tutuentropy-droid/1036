@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { Calendar, Gauge, MapPin, Globe2, Home } from 'lucide-react';
+import { Calendar, Gauge, MapPin, Globe2, Home, Shuffle, Zap } from 'lucide-react';
 import { useFilterStore, minYear, maxYear, type RegionFilter } from '@/store/useFilterStore';
 import { cn } from '@/lib/utils';
 
-export default function YearSlider() {
+interface YearSliderProps {
+  onYearTravel?: (year: number, type: 'film-roll' | 'flash-frame') => void;
+}
+
+export default function YearSlider({ onYearTravel }: YearSliderProps) {
   const {
     selectedYear,
     setSelectedYear,
@@ -29,6 +33,30 @@ export default function YearSlider() {
     },
     [selectedYear, setSelectedYear, triggerRewind]
   );
+
+  const handleYearClick = useCallback(
+    (year: number) => {
+      if (year !== selectedYear) {
+        if (onYearTravel) {
+          onYearTravel(year, 'film-roll');
+        } else {
+          setSelectedYear(year);
+          triggerRewind();
+        }
+      }
+    },
+    [selectedYear, setSelectedYear, triggerRewind, onYearTravel]
+  );
+
+  const handleRandomTravel = useCallback(() => {
+    const randomYear = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
+    if (onYearTravel) {
+      onYearTravel(randomYear, 'flash-frame');
+    } else {
+      setSelectedYear(randomYear);
+      triggerRewind();
+    }
+  }, [setSelectedYear, triggerRewind, onYearTravel]);
 
   const getYearFromPosition = useCallback((clientX: number) => {
     if (!sliderRef.current) return selectedYear;
@@ -134,15 +162,25 @@ export default function YearSlider() {
         <div>
           <div className="flex items-center justify-between mb-3">
             <span className="font-pixel text-xs text-gray-400">{minYear}</span>
-            <div
-              className="font-pixel text-xl md:text-2xl px-3 py-1.5 rounded-xl border-2 animate-pulse-glow"
-              style={{
-                color: '#39ff14',
-                borderColor: '#39ff14',
-                boxShadow: '0 0 15px rgba(57, 255, 20, 0.4)',
-              }}
-            >
-              {selectedYear}
+            <div className="flex items-center gap-3">
+              <div
+                className="font-pixel text-xl md:text-2xl px-3 py-1.5 rounded-xl border-2 animate-pulse-glow"
+                style={{
+                  color: '#39ff14',
+                  borderColor: '#39ff14',
+                  boxShadow: '0 0 15px rgba(57, 255, 20, 0.4)',
+                }}
+              >
+                {selectedYear}
+              </div>
+              <button
+                onClick={handleRandomTravel}
+                className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-pixel text-xs bg-gradient-to-r from-vhs-pink/20 to-vhs-purple/20 border border-vhs-purple/50 text-vhs-purple hover:border-vhs-pink hover:text-vhs-pink transition-all duration-300 hover:scale-105 active:scale-95"
+                title="随机穿越到任意年份"
+              >
+                <Shuffle className="w-4 h-4 group-hover:animate-spin" style={{ animationDuration: '0.5s' }} />
+                <Zap className="w-3 h-3 text-vhs-pink" />
+              </button>
             </div>
             <span className="font-pixel text-xs text-gray-400">{maxYear}</span>
           </div>
@@ -181,12 +219,12 @@ export default function YearSlider() {
               (year) => (
                 <button
                   key={year}
-                  onClick={() => handleYearChange(year)}
+                  onClick={() => handleYearClick(year)}
                   className={cn(
                     'font-terminal text-xs transition-all duration-200 h-3',
                     selectedYear === year
                       ? 'text-vhs-green font-bold scale-125'
-                      : 'text-gray-500 hover:text-gray-300'
+                      : 'text-gray-500 hover:text-gray-300 hover:scale-110'
                   )}
                 >
                   {year}

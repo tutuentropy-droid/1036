@@ -3,14 +3,17 @@ import MovieCard from './MovieCard';
 import YearSlider from './YearSlider';
 import CuratorNote from './CuratorNote';
 import Empty from './Empty';
+import TimeTravelTransition from './TimeTravelTransition';
 import { Clapperboard, Filter, Film, Rewind } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export default function MovieGrid() {
-  const { getFilteredMovies, rewindKey, getMisalignmentRate, isRewinding } = useFilterStore();
+  const { getFilteredMovies, rewindKey, getMisalignmentRate, isRewinding, triggerRewind } = useFilterStore();
   const filteredMovies = getFilteredMovies();
   const rate = getMisalignmentRate();
   const [showRewindIndicator, setShowRewindIndicator] = useState(false);
+  const [travelType, setTravelType] = useState<'film-roll' | 'flash-frame' | null>(null);
+  const [travelTargetYear, setTravelTargetYear] = useState<number | null>(null);
 
   useEffect(() => {
     if (isRewinding) {
@@ -19,6 +22,17 @@ export default function MovieGrid() {
       return () => clearTimeout(timer);
     }
   }, [rewindKey, isRewinding]);
+
+  const handleYearTravel = useCallback((year: number, type: 'film-roll' | 'flash-frame') => {
+    setTravelTargetYear(year);
+    setTravelType(type);
+  }, []);
+
+  const handleTravelComplete = useCallback(() => {
+    setTravelType(null);
+    setTravelTargetYear(null);
+    triggerRewind();
+  }, [triggerRewind]);
 
   return (
     <section className="relative py-12 px-4 space-y-12">
@@ -62,8 +76,16 @@ export default function MovieGrid() {
           </div>
 
           <div className="mb-8">
-            <YearSlider />
+            <YearSlider onYearTravel={handleYearTravel} />
           </div>
+
+          {travelType && travelTargetYear !== null && (
+            <TimeTravelTransition
+              type={travelType}
+              targetYear={travelTargetYear}
+              onComplete={handleTravelComplete}
+            />
+          )}
 
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4 pt-2 border-t border-vhs-gray/40">
             <div className="flex items-center gap-2">

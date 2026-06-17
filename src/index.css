@@ -490,3 +490,168 @@ input[type='range'].vhs-range::-moz-range-thumb {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(180, 140, 80, 0.5);
 }
+
+@keyframes filmRoll {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.film-roll-content {
+  animation: filmRoll 0.8s ease-in-out infinite;
+}
+
+.film-scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(57, 255, 20, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 100% 8px;
+  animation: filmScanlineMove 0.1s linear infinite;
+}
+
+@keyframes filmScanlineMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 8px;
+  }
+}
+
+@keyframes flashFrame {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.flash-frame-effect {
+  animation: flashFrame 0.1s ease-in-out;
+}
+
+@keyframes yearFlash {
+  0% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.year-flash {
+  animation: yearFlash 0.15s ease-in-out;
+}
+
+@keyframes brainTravelPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5), 0 0 40px rgba(199, 125, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(57, 255, 20, 0.8), 0 0 80px rgba(199, 125, 255, 0.5);
+  }
+}
+
+.brain-travel-pulse {
+  animation: brainTravelPulse 1s ease-in-out infinite;
+}
+
+@keyframes filmPerforation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}
+
+.film-perforation {
+  animation: filmPerforation 0.3s linear infinite;
+}
+
+.film-perforation-top {
+  animation: filmPerforationScroll 0.2s linear infinite;
+}
+
+.film-perforation-bottom {
+  animation: filmPerforationScroll 0.2s linear infinite reverse;
+}
+
+@keyframes filmPerforationScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}
+
+.film-vertical-scroll {
+  animation: filmVerticalScroll 0.8s ease-in-out infinite;
+}
+
+@keyframes filmVerticalScroll {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.film-frame-item {
+  animation: filmFrameFloat 2s ease-in-out infinite;
+}
+
+@keyframes filmFrameFloat {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.flash-flicker {
+  animation: flashFlicker 0.05s ease-in-out infinite;
+}
+
+@keyframes flashFlicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.flash-year {
+  animation: flashYearScale 0.1s ease-in-out;
+}
+
+@keyframes flashYearScale {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
