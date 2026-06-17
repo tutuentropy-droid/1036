@@ -629,29 +629,59 @@ input[type='range'].vhs-range::-moz-range-thumb {
 }
 
 .flash-flicker {
-  animation: flashFlicker 0.05s ease-in-out infinite;
+  animation: flashFlicker 0.08s ease-in-out infinite;
 }
 
 @keyframes flashFlicker {
   0%, 100% {
     opacity: 1;
   }
-  50% {
-    opacity: 0.85;
+  30% {
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.75;
   }
 }
 
 .flash-year {
-  animation: flashYearScale 0.1s ease-in-out;
+  animation: flashYearScale 0.15s ease-out;
 }
 
 @keyframes flashYearScale {
   0% {
-    transform: scale(0.5);
+    transform: scale(0.3) rotate(-5deg);
     opacity: 0;
   }
-  100% {
-    transform: scale(1);
+  60% {
+    transform: scale(1.1) rotate(1deg);
     opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes audioBar {
+  0% {
+    height: 8px;
+  }
+  100% {
+    height: 32px;
+  }
+}
+
+@keyframes scanlineDrift {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.5;
   }
 }
