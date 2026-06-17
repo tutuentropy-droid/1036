@@ -38,6 +38,7 @@ export default function ScriptKiller() {
 
   const handleSelectFromHistory = (script: Script) => {
     setCurrentScript(script);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleExport = () => {

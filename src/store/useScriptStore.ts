@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import type { Script, ScriptHistory, ComboRanking } from '@/types';
 
+const STORAGE_KEY = 'vhs_script_killer';
+
+interface PersistedState {
+  history: ScriptHistory[];
+  comboRankings: Record<string, ComboRanking>;
+}
+
 interface ScriptState {
   history: ScriptHistory[];
   comboRankings: Record<string, ComboRanking>;
@@ -19,9 +26,31 @@ function getComboId(aId: string, bId: string): string {
   return [aId, bId].sort().join('_');
 }
 
+function loadPersistedState(): PersistedState {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { history: [], comboRankings: {} };
+    const parsed = JSON.parse(raw) as PersistedState;
+    return {
+      history: Array.isArray(parsed.history) ? parsed.history : [],
+      comboRankings: parsed.comboRankings && typeof parsed.comboRankings === 'object' ? parsed.comboRankings : {},
+    };
+  } catch {
+    return { history: [], comboRankings: {} };
+  }
+}
+
+function persistState(state: PersistedState): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {}
+}
+
+const initialState = loadPersistedState();
+
 export const useScriptStore = create<ScriptState>((set, get) => ({
-  history: [],
-  comboRankings: {},
+  history: initialState.history,
+  comboRankings: initialState.comboRankings,
   currentScript: null,
 
   saveScript: (script: Script) => {
@@ -35,10 +64,12 @@ export const useScriptStore = create<ScriptState>((set, get) => ({
         viewedAt: Date.now(),
       };
 
-      return {
+      const next = {
         history: [historyEntry, ...state.history],
         currentScript: script,
       };
+      persistState({ history: next.history, comboRankings: state.comboRankings });
+      return next;
     });
   },
 
@@ -85,6 +116,7 @@ export const useScriptStore = create<ScriptState>((set, get) => ({
         }
       }
 
+      persistState({ history, comboRankings });
       return { history, comboRankings };
     });
   },
@@ -112,6 +144,8 @@ export const useScriptStore = create<ScriptState>((set, get) => ({
   },
 
   clearHistory: () => {
-    set({ history: [], comboRankings: {}, currentScript: null });
+    const next = { history: [], comboRankings: {}, currentScript: null };
+    persistState({ history: [], comboRankings: {} });
+    set(next);
   },
 }));
