@@ -8,7 +8,40 @@ export interface Movie {
   genre: string[];
   posterColor: string;
   posterGradient?: string;
- 错位Fact: string;
- 错位Director?: string;
+  错位Fact: string;
+  错位Director?: string;
   emoji: string;
+}
+
+export interface DialogLine {
+  id: string;
+  speaker: 'A' | 'B';
+  movieTitle: string;
+  movieEmoji: string;
+  text: string;
+  timestamp: number;
+}
+
+export interface Script {
+  id: string;
+  movieA: Movie;
+  movieB: Movie;
+  lines: DialogLine[];
+  createdAt: number;
+  title: string;
+}
+
+export interface ScriptHistory {
+  script: Script;
+  rating: number;
+  viewedAt: number;
+}
+
+export interface ComboRanking {
+  comboId: string;
+  movieAId: string;
+  movieBId: string;
+  totalRating: number;
+  ratingCount: number;
+  averageRating: number;
 }

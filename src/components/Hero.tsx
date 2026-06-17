@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Film, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Film, Sparkles, Gamepad2 } from 'lucide-react';
 
 export default function Hero() {
+  const navigate = useNavigate();
   const [displayText, setDisplayText] = useState('');
   const fullText = '90年代电影错位博物馆';
   const [showSubtitle, setShowSubtitle] = useState(false);
@@ -55,7 +57,19 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className={`mt-12 transition-all duration-1000 delay-500 ${showSubtitle ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`mt-10 transition-all duration-1000 delay-300 ${showSubtitle ? 'opacity-100' : 'opacity-0'}`}>
+          <button
+            onClick={() => navigate('/script-killer')}
+            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-xl font-pixel text-lg bg-gradient-to-r from-vhs-pink to-vhs-purple text-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg"
+            style={{ boxShadow: '0 0 30px rgba(255, 107, 157, 0.3)' }}
+          >
+            <Gamepad2 className="w-5 h-5 group-hover:animate-pulse" />
+            进入错位剧本杀
+            <Gamepad2 className="w-5 h-5 group-hover:animate-pulse" />
+          </button>
+        </div>
+
+        <div className={`mt-10 transition-all duration-1000 delay-500 ${showSubtitle ? 'opacity-100' : 'opacity-0'}`}>
           <div className="inline-block px-6 py-3 border-2 border-vhs-green/50 rounded-lg">
             <span className="font-terminal text-vhs-green text-lg">
               ▼ 向下滚动探索 ▼
