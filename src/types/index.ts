@@ -45,3 +45,13 @@ export interface ComboRanking {
   ratingCount: number;
   averageRating: number;
 }
+
+export interface Review {
+  id: string;
+  movieId: string;
+  content: string;
+  authorId: string;
+  likes: number;
+  likedBy: string[];
+  createdAt: number;
+}

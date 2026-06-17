@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "@/pages/Home";
 import ScriptKiller from "@/pages/ScriptKiller";
+import HotReviewWall from "@/pages/HotReviewWall";
 
 export default function App() {
   return (
@@ -8,7 +9,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/script-killer" element={<ScriptKiller />} />
-        <Route path="/other" element={<div className="text-center text-xl">Other Page - Coming Soon</div>} />
+        <Route path="/hot-reviews" element={<HotReviewWall />} />
       </Routes>
     </Router>
   );
